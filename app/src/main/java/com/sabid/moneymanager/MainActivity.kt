@@ -1,31 +1,64 @@
 package com.sabid.moneymanager
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sabid.moneymanager.databinding.ActivityMainBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.time.LocalDate
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var db: MyDatabase
+    private val transactionViewModel: TransactionViewModel by viewModels {
+        TransactionViewModelFactory((application as MoneyManagerApp).repository)
+    }
+
+    val accountGroupIncomeID = 1
+    val accountGroupExpenseID = 2
+    val accountGroupCurrentID = 3
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val adapter = TransactionAdapter()
+        binding.rvTransactions.adapter = adapter
+        binding.rvTransactions.setHasFixedSize(true)
+        binding.rvTransactions.layoutManager = LinearLayoutManager(this)
 
-        db = MyDatabase.getDatabase(this)
+        transactionViewModel.allTransactions.observe(this) { transactionList ->
+            transactionList.let { adapter.updateTransactionList(it) }
+        }
 
-        fillDemoData()
+        binding.fabAddTransaction.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    AddEditTransactionActivity::class.java
+                )
+            )
+        }
+        binding.fabAddTransaction.setOnLongClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    AddEditAccountActivity::class.java
+                )
+            )
+            true
+        }
     }
 
-    private fun fillDemoData() {
+    /*private fun fillDemoData() {
         CoroutineScope(Dispatchers.IO).launch {
             db.accountGroupDao().insertAccountGroup(AccountGroup(1, "Income"))
             db.accountGroupDao().insertAccountGroup(AccountGroup(2, "Expense"))
             db.accountGroupDao().insertAccountGroup(AccountGroup(3, "Current"))
+            // transaction types
+            db.transactionTypeDao().insertTransactionType(TransactionType(1, "Income"))
+            db.transactionTypeDao().insertTransactionType(TransactionType(2, "Expense"))
+            db.transactionTypeDao().insertTransactionType(TransactionType(3, "Transfer"))
             // income accounts
             db.accountDao().insertAccount(Account(1, "Other", 0.0, 1))
             db.accountDao().insertAccount(Account(2, "Salary", 0.0, 1))
@@ -38,10 +71,7 @@ class MainActivity : AppCompatActivity() {
             db.accountDao().insertAccount(Account(7, "Cash", 0.0, 3))
             db.accountDao().insertAccount(Account(8, "DBBL", 0.0, 3))
 
-            // transaction types
-            db.transactionTypeDao().insertTransactionType(TransactionType(1, "Income"))
-            db.transactionTypeDao().insertTransactionType(TransactionType(2, "Expense"))
-            db.transactionTypeDao().insertTransactionType(TransactionType(3, "Transfer"))
+
 
             // transactions
             db.transactionDao()
@@ -62,5 +92,5 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
-    }
+    }*/
 }

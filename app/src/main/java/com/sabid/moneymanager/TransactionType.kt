@@ -7,4 +7,8 @@ import androidx.room.PrimaryKey
 data class TransactionType(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val name: String
-)
+) {
+    override fun toString(): String {
+        return name
+    }
+}

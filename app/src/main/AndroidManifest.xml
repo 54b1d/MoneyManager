@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".MoneyManagerApp"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,7 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoneyManager"
         tools:targetApi="31">
-
+        <activity
+            android:name=".LedgerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AccountsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddEditTransactionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddEditAccountActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

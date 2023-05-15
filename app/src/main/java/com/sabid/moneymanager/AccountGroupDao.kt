@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AccountGroupDao {
@@ -12,4 +13,7 @@ interface AccountGroupDao {
 
     @Query("SELECT * FROM account_groups WHERE id=:id")
     suspend fun getAccountGroupById(id: Int): AccountGroup?
+
+    @Query("SELECT * FROM account_groups")
+    fun getAllAccountGroup(): Flow<List<AccountGroup>>
 }

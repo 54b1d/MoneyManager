@@ -21,4 +21,8 @@ data class Account(
     val name: String,
     val openingBalance: Double,
     @ColumnInfo(name = "account_group_id") val accountGroupId: Int
-)
+) {
+    override fun toString(): String {
+        return name
+    }
+}
