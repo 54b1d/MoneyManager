@@ -1,4 +1,4 @@
-package com.sabid.moneymanager
+package com.sabid.moneymanager.activities
 
 import android.os.Bundle
 import android.util.Log
@@ -6,10 +6,14 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sabid.moneymanager.MoneyManagerApp
+import com.sabid.moneymanager.adapters.TransactionDetailedAdapter
+import com.sabid.moneymanager.viewModels.TransactionViewModel
+import com.sabid.moneymanager.viewModels.TransactionViewModelFactory
 import com.sabid.moneymanager.databinding.ActivityLedgerBinding
 
 class LedgerActivity : AppCompatActivity() {
-    lateinit var binding: ActivityLedgerBinding
+    private lateinit var binding: ActivityLedgerBinding
     private val transactionViewModel: TransactionViewModel by viewModels {
         TransactionViewModelFactory((application as MoneyManagerApp).repository)
     }
@@ -18,7 +22,7 @@ class LedgerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLedgerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val adapter = TransactionAdapter()
+        val adapter = TransactionDetailedAdapter()
         binding.rvLedger.adapter = adapter
         binding.rvLedger.setHasFixedSize(true)
         binding.rvLedger.layoutManager = LinearLayoutManager(this)

@@ -1,7 +1,8 @@
-package com.sabid.moneymanager
+package com.sabid.moneymanager.daos
 
 import androidx.room.Dao
 import androidx.room.Query
+import com.sabid.moneymanager.dataModels.TransactionDetailed
 import kotlinx.coroutines.flow.Flow
 
 @Dao

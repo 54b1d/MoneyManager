@@ -14,19 +14,19 @@
         android:theme="@style/Theme.MoneyManager"
         tools:targetApi="31">
         <activity
-            android:name=".LedgerActivity"
+            android:name=".activities.LedgerActivity"
             android:exported="false" />
         <activity
-            android:name=".AccountsActivity"
+            android:name=".activities.AccountsActivity"
             android:exported="false" />
         <activity
-            android:name=".AddEditTransactionActivity"
+            android:name=".activities.AddEditTransactionActivity"
             android:exported="false" />
         <activity
-            android:name=".AddEditAccountActivity"
+            android:name=".activities.AddEditAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,9 +1,11 @@
-package com.sabid.moneymanager
+package com.sabid.moneymanager.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import com.sabid.moneymanager.dataModels.AccountGroup
+import com.sabid.moneymanager.DataRepository
 
 class AccountGroupViewModel(private val dataRepository: DataRepository) : ViewModel() {
     val allAccountGroup: LiveData<List<AccountGroup>> =

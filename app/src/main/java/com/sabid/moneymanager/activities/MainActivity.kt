@@ -1,10 +1,14 @@
-package com.sabid.moneymanager
+package com.sabid.moneymanager.activities
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sabid.moneymanager.MoneyManagerApp
+import com.sabid.moneymanager.adapters.TransactionDetailedAdapter
+import com.sabid.moneymanager.viewModels.TransactionViewModel
+import com.sabid.moneymanager.viewModels.TransactionViewModelFactory
 import com.sabid.moneymanager.databinding.ActivityMainBinding
 
 
@@ -22,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val adapter = TransactionAdapter()
+        val adapter = TransactionDetailedAdapter()
         binding.rvTransactions.adapter = adapter
         binding.rvTransactions.setHasFixedSize(true)
         binding.rvTransactions.layoutManager = LinearLayoutManager(this)

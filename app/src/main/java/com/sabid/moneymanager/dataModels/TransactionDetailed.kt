@@ -1,4 +1,4 @@
-package com.sabid.moneymanager
+package com.sabid.moneymanager.dataModels
 
 data class TransactionDetailed(
     val id: Int,

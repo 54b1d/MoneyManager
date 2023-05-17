@@ -1,4 +1,4 @@
-package com.sabid.moneymanager
+package com.sabid.moneymanager.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

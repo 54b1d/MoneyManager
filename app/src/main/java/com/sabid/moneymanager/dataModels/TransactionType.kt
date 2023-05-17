@@ -1,4 +1,4 @@
-package com.sabid.moneymanager
+package com.sabid.moneymanager.dataModels
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

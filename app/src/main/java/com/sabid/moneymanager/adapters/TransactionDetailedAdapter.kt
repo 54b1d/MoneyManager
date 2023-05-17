@@ -1,4 +1,4 @@
-package com.sabid.moneymanager
+package com.sabid.moneymanager.adapters
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.sabid.moneymanager.activities.LedgerActivity
+import com.sabid.moneymanager.dataModels.TransactionDetailed
+import com.sabid.moneymanager.R
 
 
-class TransactionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TransactionDetailedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var transactionDetailedList: List<TransactionDetailed> = emptyList()
 
     override fun onCreateViewHolder(
