@@ -6,4 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".LedgerActivity">
 
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+        android:id="@+id/collapsingToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentScrim="@color/purple_200"
+        app:expandedTitleMarginBottom="25dp"
+        app:expandedTitleMarginStart="15dp"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="this is tool bar" />
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLedger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/collapsingToolbar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

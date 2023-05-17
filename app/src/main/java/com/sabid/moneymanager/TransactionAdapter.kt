@@ -1,19 +1,20 @@
 package com.sabid.moneymanager
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 
 class TransactionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var transactionDetailedList: List<TransactionDetailed> = emptyList()
+    private var transactionDetailedList: List<TransactionDetailed> = emptyList()
 
     override fun onCreateViewHolder(
-        viewGroup: ViewGroup,
-        viewType: Int
+        viewGroup: ViewGroup, viewType: Int
     ): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
         val view = inflater.inflate(R.layout.item_transaction, viewGroup, false)
@@ -28,6 +29,21 @@ class TransactionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         viewHolder.accountTo.text = transactionDetailed.accountToName
         viewHolder.amount.text = transactionDetailed.amount.toString()
         viewHolder.narration.text = transactionDetailed.narration
+
+        viewHolder.accountFrom.setOnClickListener {
+            it.context.startActivity(
+                Intent(
+                    it.context, LedgerActivity::class.java
+                ).putExtra("accountId", transactionDetailed.accountFromId)
+            )
+        }
+        viewHolder.accountTo.setOnClickListener {
+            it.context.startActivity(
+                Intent(
+                    it.context, LedgerActivity::class.java
+                ).putExtra("accountId", transactionDetailed.accountToId)
+            )
+        }
     }
 
     override fun getItemCount(): Int {

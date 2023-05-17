@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class TransactionViewModel(private val dataRepository: DataRepository) : ViewModel() {
@@ -19,6 +20,10 @@ class TransactionViewModel(private val dataRepository: DataRepository) : ViewMod
      */
     fun insert(transaction: Transaction) = viewModelScope.launch(Dispatchers.IO) {
         dataRepository.insertTransaction(transaction)
+    }
+
+    fun getAllTransactionOf(accountId: Int): LiveData<List<TransactionDetailed>> {
+        return dataRepository.getAllTransactionOf(accountId).asLiveData()
     }
 }
 

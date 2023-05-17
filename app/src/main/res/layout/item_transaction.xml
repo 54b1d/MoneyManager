@@ -18,6 +18,7 @@
         android:id="@+id/txtAccountFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         android:text="AccountFrom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtDate" />
@@ -26,6 +27,7 @@
         android:id="@+id/txtAccountTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         android:text="AccountTo"
         app:layout_constraintStart_toEndOf="@id/txtAccountFrom"
         app:layout_constraintTop_toBottomOf="@id/txtDate" />
