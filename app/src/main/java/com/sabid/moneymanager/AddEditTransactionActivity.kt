@@ -1,8 +1,10 @@
 package com.sabid.moneymanager
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
@@ -12,6 +14,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 class AddEditTransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEditTransactionBinding
@@ -26,6 +30,8 @@ class AddEditTransactionActivity : AppCompatActivity() {
     }
     private var accountFromId: Int = 0
     private var accountToId: Int = 0
+    val prefDateFormat = DateTimeFormatter.ISO_DATE
+    val dbDateFormat = DateTimeFormatter.ISO_DATE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +44,24 @@ class AddEditTransactionActivity : AppCompatActivity() {
         } else {
             Log.d(javaClass.name, "Intent new Transaction")
         }
+        val today = LocalDate.now()
+        binding.textDate.text = today.format(prefDateFormat)
+        binding.textDate.setOnClickListener {
+            val mCalendar = Calendar.getInstance()
 
+            val mDialog = DatePickerDialog(
+                this,
+                R.style.Theme_MoneyManager,
+                { _: DatePicker?, year1: Int, month1: Int, day1: Int ->
+                    val lt = LocalDate.parse("$year1-${month1 + 1}-$day1", prefDateFormat)
+                    binding.textDate.text = lt.toString()
+                },
+                today.year,
+                today.monthValue - 1,
+                today.dayOfMonth
+            )
+            mDialog.show()
+        }
         binding.editTransactionGroup.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 // show bottomSheet fragment with list of account groups
@@ -99,8 +122,8 @@ class AddEditTransactionActivity : AppCompatActivity() {
     }
 
     private fun addTransactionConfirmed() {
-        // todo get date from date picker
-        val trxDate = LocalDate.now().toString()
+        val trxDate = LocalDate.parse(binding.textDate.text.toString(), dbDateFormat).toString()
+        Log.d(javaClass.name, "addTransactionConfirmed: $trxDate")
         var transactionTypeId = 0
         val transactionType = binding.editTransactionGroup.text.toString().trim()
         val accountFrom = binding.editAccountFrom.text.toString().trim()

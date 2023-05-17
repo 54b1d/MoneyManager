@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvTransactions.setHasFixedSize(true)
         binding.rvTransactions.layoutManager = LinearLayoutManager(this)
 
-        transactionViewModel.allTransactions.observe(this) { transactionList ->
+        transactionViewModel.allTransactionDetailed.observe(this) { transactionList ->
             transactionList.let { adapter.updateTransactionList(it) }
         }
 

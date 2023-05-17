@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 class TransactionViewModel(private val dataRepository: DataRepository) : ViewModel() {
     val allTransactions: LiveData<List<Transaction>> =
         dataRepository.allTransactions.asLiveData()
+    val allTransactionDetailed: LiveData<List<TransactionDetailed>> =
+        dataRepository.allDetailedTransaction.asLiveData()
 
     /**
      * Launching a new coroutine to insert the data in a non-blocking way

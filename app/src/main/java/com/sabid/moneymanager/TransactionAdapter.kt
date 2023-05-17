@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class TransactionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var transactionList: List<Transaction> = emptyList()
+    var transactionDetailedList: List<TransactionDetailed> = emptyList()
 
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
@@ -21,17 +21,17 @@ class TransactionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val transaction = transactionList[position]
+        val transactionDetailed = transactionDetailedList[position]
         val viewHolder: TransactionViewHolder = holder as TransactionViewHolder
-        viewHolder.trxDate.text = transaction.trxDate
-        viewHolder.accountFrom.text = transaction.accountFromId.toString()
-        viewHolder.accountTo.text = transaction.accountToId.toString()
-        viewHolder.amount.text = transaction.amount.toString()
-        viewHolder.narration.text = transaction.narration
+        viewHolder.trxDate.text = transactionDetailed.trxDate
+        viewHolder.accountFrom.text = transactionDetailed.accountFromName
+        viewHolder.accountTo.text = transactionDetailed.accountToName
+        viewHolder.amount.text = transactionDetailed.amount.toString()
+        viewHolder.narration.text = transactionDetailed.narration
     }
 
     override fun getItemCount(): Int {
-        return transactionList.size
+        return transactionDetailedList.size
     }
 
     class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -51,8 +51,8 @@ class TransactionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateTransactionList(newList: List<Transaction>) {
-        transactionList = newList
+    fun updateTransactionList(newList: List<TransactionDetailed>) {
+        transactionDetailedList = newList
         notifyDataSetChanged()
     }
 }

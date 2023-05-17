@@ -7,12 +7,14 @@ class DataRepository(
     private val transactionTypeDao: TransactionTypeDao,
     private val transactionDao: TransactionDao,
     private val accountGroupDao: AccountGroupDao,
-    private val accountDao: AccountDao
+    private val accountDao: AccountDao,
+    private val transactionDetailedDao: TransactionDetailedDao
 ) {
     val allTransactions: Flow<List<Transaction>> = transactionDao.getAllTransaction()
     val allTransactionType: Flow<List<TransactionType>> = transactionTypeDao.getAllTransactionType()
     val allAccountGroup: Flow<List<AccountGroup>> = accountGroupDao.getAllAccountGroup()
     val allAccount: Flow<List<Account>> = accountDao.getAllAccount()
+    val allDetailedTransaction: Flow<List<TransactionDetailed>> = transactionDetailedDao.allTransactionDetailed()
 
     @WorkerThread
     suspend fun insertTransaction(transaction: Transaction) {
