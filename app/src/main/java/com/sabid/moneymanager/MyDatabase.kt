@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.sabid.moneymanager.daos.AccountDao
 import com.sabid.moneymanager.daos.AccountGroupDao
+import com.sabid.moneymanager.daos.AccountWithBalanceDao
 import com.sabid.moneymanager.daos.TransactionDao
 import com.sabid.moneymanager.daos.TransactionDetailedDao
 import com.sabid.moneymanager.daos.TransactionTypeDao
@@ -27,6 +28,7 @@ abstract class MyDatabase : RoomDatabase() {
     abstract fun transactionTypeDao(): TransactionTypeDao
     abstract fun transactionDao(): TransactionDao
     abstract fun transactionDetailedDao(): TransactionDetailedDao
+    abstract fun accountWithBalanceDao(): AccountWithBalanceDao
 
     companion object {
         @Volatile

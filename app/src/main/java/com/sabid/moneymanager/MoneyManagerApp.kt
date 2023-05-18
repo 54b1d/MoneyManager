@@ -17,7 +17,8 @@ class MoneyManagerApp : Application() {
             database.transactionDao(),
             database.accountGroupDao(),
             database.accountDao(),
-            database.transactionDetailedDao()
+            database.transactionDetailedDao(),
+            database.accountWithBalanceDao()
         )
     }
 }

@@ -38,7 +38,7 @@ class AddEditTransactionActivity : AppCompatActivity() {
     private var accountFromId: Int = 0
     private var accountToId: Int = 0
     private lateinit var datePickerDateFormat: DateTimeFormatter
-    val dbDateFormat = DateTimeFormatter.ISO_DATE
+    private val dbDateFormat = DateTimeFormatter.ISO_DATE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
