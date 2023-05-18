@@ -8,45 +8,32 @@
     android:padding="4dp">
 
     <TextView
-        android:id="@+id/txtDate"
-        android:layout_width="0dp"
+        android:id="@+id/tvAccountName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="YYYY-MM-DD"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtAccountFrom"
+        android:id="@+id/tvAccountBalance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="AccountFrom"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtDate" />
-
-    <TextView
-        android:id="@+id/txtAccountTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="AccountTo"
-        app:layout_constraintStart_toEndOf="@id/txtAccountFrom"
-        app:layout_constraintTop_toBottomOf="@id/txtDate" />
-
-    <TextView
-        android:id="@+id/txtAmount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="0.0"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtNarration"
+        android:id="@+id/tvAccountGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Narration"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtAccountFrom" />
-
+        app:layout_constraintTop_toBottomOf="@+id/tvAccountName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

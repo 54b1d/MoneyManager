@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sabid.moneymanager.MoneyManagerApp
 import com.sabid.moneymanager.adapters.TransactionDetailedAdapter
+import com.sabid.moneymanager.databinding.ActivityMainBinding
 import com.sabid.moneymanager.viewModels.TransactionViewModel
 import com.sabid.moneymanager.viewModels.TransactionViewModelFactory
-import com.sabid.moneymanager.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,6 +51,14 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             true
+        }
+        binding.fabAccounts.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    AccountsActivity::class.java
+                )
+            )
         }
     }
 
