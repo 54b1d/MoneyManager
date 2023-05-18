@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sabid.moneymanager.MoneyManagerApp
 import com.sabid.moneymanager.adapters.TransactionDetailedAdapter
+import com.sabid.moneymanager.databinding.ActivityLedgerBinding
 import com.sabid.moneymanager.viewModels.TransactionViewModel
 import com.sabid.moneymanager.viewModels.TransactionViewModelFactory
-import com.sabid.moneymanager.databinding.ActivityLedgerBinding
 
 class LedgerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLedgerBinding
@@ -22,6 +22,10 @@ class LedgerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLedgerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val actionbar = binding.toolBar
+        actionbar.title = "Ledger"
+
         val adapter = TransactionDetailedAdapter()
         binding.rvLedger.adapter = adapter
         binding.rvLedger.setHasFixedSize(true)

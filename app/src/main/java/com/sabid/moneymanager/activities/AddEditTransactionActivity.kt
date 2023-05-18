@@ -9,21 +9,20 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import com.sabid.moneymanager.dataModels.Transaction
 import com.sabid.moneymanager.MoneyManagerApp
 import com.sabid.moneymanager.R
+import com.sabid.moneymanager.dataModels.Transaction
+import com.sabid.moneymanager.databinding.ActivityAddEditTransactionBinding
 import com.sabid.moneymanager.viewModels.AccountViewModel
 import com.sabid.moneymanager.viewModels.AccountViewModelFactory
 import com.sabid.moneymanager.viewModels.TransactionTypeViewModel
 import com.sabid.moneymanager.viewModels.TransactionViewModel
 import com.sabid.moneymanager.viewModels.TransactionViewModelFactory
-import com.sabid.moneymanager.databinding.ActivityAddEditTransactionBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.Calendar
 
 class AddEditTransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEditTransactionBinding
@@ -38,13 +37,15 @@ class AddEditTransactionActivity : AppCompatActivity() {
     }
     private var accountFromId: Int = 0
     private var accountToId: Int = 0
-    val prefDateFormat = DateTimeFormatter.ISO_DATE
+    private lateinit var datePickerDateFormat: DateTimeFormatter
     val dbDateFormat = DateTimeFormatter.ISO_DATE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEditTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        datePickerDateFormat =
+            DateTimeFormatter.ofPattern(resources.getString(R.string.date_format))
         val actionBar: ActionBar? = supportActionBar
         actionBar?.title = "Transaction Edit"
         if (intent.getIntExtra("accountId", 0) != 0) {
@@ -53,20 +54,13 @@ class AddEditTransactionActivity : AppCompatActivity() {
             Log.d(javaClass.name, "Intent new Transaction")
         }
         val today = LocalDate.now()
-        binding.textDate.text = today.format(prefDateFormat)
+        binding.textDate.text = today.format(dbDateFormat)
         binding.textDate.setOnClickListener {
-            val mCalendar = Calendar.getInstance()
-
             val mDialog = DatePickerDialog(
-                this,
-                R.style.Theme_MoneyManager,
-                { _: DatePicker?, year1: Int, month1: Int, day1: Int ->
-                    val lt = LocalDate.parse("$year1-${month1 + 1}-$day1", prefDateFormat)
+                this, R.style.DialogTheme, { _: DatePicker?, year1: Int, month1: Int, day1: Int ->
+                    val lt = LocalDate.parse("$year1-${month1 + 1}-$day1", datePickerDateFormat)
                     binding.textDate.text = lt.toString()
-                },
-                today.year,
-                today.monthValue - 1,
-                today.dayOfMonth
+                }, today.year, today.monthValue - 1, today.dayOfMonth
             )
             mDialog.show()
         }
@@ -140,9 +134,7 @@ class AddEditTransactionActivity : AppCompatActivity() {
                 .toDoubleOrNull() == null
         ) 0.0 else binding.editAmount.text.toString().trim().toDouble()
         val narration = binding.editNarration.text.toString().trim()
-        if (transactionType.isNotBlank() && accountFrom.isNotBlank() && accountTo.isNotBlank()
-            && amount != 0.0 && accountFromId != 0 && accountToId != 0
-        ) {
+        if (transactionType.isNotBlank() && accountFrom.isNotBlank() && accountTo.isNotBlank() && amount != 0.0 && accountFromId != 0 && accountToId != 0) {
             try {
                 when (transactionType) {
                     "Income" -> transactionTypeId = 1
