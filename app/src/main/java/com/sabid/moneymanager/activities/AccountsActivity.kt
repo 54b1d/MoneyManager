@@ -10,6 +10,7 @@ import com.sabid.moneymanager.adapters.AccountWithBalanceAdapter
 import com.sabid.moneymanager.databinding.ActivityAccountsBinding
 import com.sabid.moneymanager.viewModels.AccountViewModel
 import com.sabid.moneymanager.viewModels.AccountViewModelFactory
+import kotlin.math.abs
 
 class AccountsActivity : AppCompatActivity() {
     lateinit var binding: ActivityAccountsBinding
@@ -28,7 +29,31 @@ class AccountsActivity : AppCompatActivity() {
         binding.rvAccounts.layoutManager = LinearLayoutManager(this)
 
         accountViewModel.allAccountWithBalance.observe(this) {
-            it.let { adapter.updateAccountWithBalanceList(it) }
+            it.let {
+                adapter.updateAccountWithBalanceList(it)
+                // liability = sum of current account balance in negative
+                var liability = 0.0
+                // asset = sum of current account balance in positive
+                var asset = 0.0
+                // net = asset - liability + income - expense
+                val net: Double
+
+                var income = 0.0
+                var expense = 0.0
+
+                for (ac in it) {
+                    when (ac.groupId) {
+                        1 -> income += ac.balance
+                        2 -> expense += ac.balance
+                        3 -> if (ac.balance < 0.0) liability += ac.balance else asset += ac.balance
+                    }
+                }
+
+                net = abs(asset) - abs(liability) + abs(income) - abs(expense)
+
+                binding.tvAssetLiabilityNet.text = "Asset: $asset, Liability: $liability, Net: $net"
+                binding.tvIncomeExpense.text = "Income: $income, Expense: $expense"
+            }
         }
 
         binding.fabAddAccount.setOnClickListener {
