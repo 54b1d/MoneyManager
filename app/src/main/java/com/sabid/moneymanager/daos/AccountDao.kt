@@ -21,7 +21,7 @@ interface AccountDao {
     fun getAccountById(id: Int): LiveData<Account>
 
     @Query("SELECT * FROM accounts WHERE name=:name")
-    fun getAccountByName(name: String): Account
+    fun getAccountByName(name: String): LiveData<Account>
 
     @Query("SELECT * FROM accounts ORDER BY name ASC")
     fun getALlAccountName(): List<Account>

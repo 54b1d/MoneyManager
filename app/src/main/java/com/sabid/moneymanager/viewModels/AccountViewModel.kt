@@ -20,7 +20,7 @@ class AccountViewModel(private val dataRepository: DataRepository) : ViewModel()
         dataRepository.insertAccount(account)
     }
 
-    fun getAccountByName(name: String): Account = viewModelScope.let {
+    fun getAccountByName(name: String): LiveData<Account> = viewModelScope.let {
         return dataRepository.getAccountByName(name)
     }
 

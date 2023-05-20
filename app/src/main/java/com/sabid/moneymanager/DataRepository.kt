@@ -36,6 +36,9 @@ class DataRepository(
     fun getAllTransactionOf(accountId: Int): Flow<List<TransactionDetailed>> {
         return transactionDetailedDao.allTransactionDetailed(accountId)
     }
+    fun getDetailedTransactionById(transactionId: Int): LiveData<TransactionDetailed> {
+        return transactionDetailedDao.getDetailedTransactionById(transactionId)
+    }
 
     fun getAccountWithBalance(accountId: Int): Flow<List<AccountWithBalance>> {
         return accountWithBalanceDao.getAccountWithBalance(accountId)
@@ -47,16 +50,22 @@ class DataRepository(
     }
 
     @WorkerThread
+    suspend fun updateTransaction(transaction: Transaction) {
+        transactionDao.updateTransaction(transaction)
+    }
+
+    @WorkerThread
     suspend fun insertAccount(account: Account) {
         accountDao.insertAccount(account)
     }
+
     @WorkerThread
     suspend fun updateAccount(account: Account) {
         accountDao.updateAccount(account)
     }
 
     @WorkerThread
-    fun getAccountByName(name: String): Account {
+    fun getAccountByName(name: String): LiveData<Account> {
         return accountDao.getAccountByName(name)
     }
 
@@ -73,5 +82,10 @@ class DataRepository(
     @WorkerThread
     fun getAccountGroupById(groupId: Int): LiveData<AccountGroup> {
         return accountGroupDao.getAccountGroupById(groupId)
+    }
+
+    @WorkerThread
+    suspend fun deleteTransaction(transactionID: Int) {
+        transactionDao.delete(transactionID)
     }
 }

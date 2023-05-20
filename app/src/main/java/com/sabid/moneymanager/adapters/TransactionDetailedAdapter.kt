@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sabid.moneymanager.R
+import com.sabid.moneymanager.activities.AddEditTransactionActivity
 import com.sabid.moneymanager.activities.LedgerActivity
 import com.sabid.moneymanager.dataModels.TransactionDetailed
 
@@ -45,6 +46,14 @@ class TransactionDetailedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Intent(
                     it.context, LedgerActivity::class.java
                 ).putExtra("accountId", transactionDetailed.accountToId)
+            )
+        }
+
+        viewHolder.itemView.setOnClickListener {
+            it.context.startActivity(
+                Intent(
+                    it.context, AddEditTransactionActivity::class.java
+                ).putExtra("transactionId", transactionDetailed.id)
             )
         }
     }
