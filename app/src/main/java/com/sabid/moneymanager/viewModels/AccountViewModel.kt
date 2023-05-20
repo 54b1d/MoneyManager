@@ -24,8 +24,16 @@ class AccountViewModel(private val dataRepository: DataRepository) : ViewModel()
         return dataRepository.getAccountByName(name)
     }
 
+    fun getAccountById(accountId: Int): LiveData<Account> = viewModelScope.let {
+        return dataRepository.getAccountById(accountId)
+    }
+
     fun getAccountWithBalanceOf(accountId: Int): LiveData<List<AccountWithBalance>> {
         return dataRepository.getAccountWithBalance(accountId).asLiveData()
+    }
+
+    fun update(account: Account) = viewModelScope.launch(Dispatchers.IO) {
+        dataRepository.updateAccount(account)
     }
 }
 

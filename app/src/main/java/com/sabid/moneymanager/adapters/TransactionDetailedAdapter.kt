@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.sabid.moneymanager.R
 import com.sabid.moneymanager.activities.LedgerActivity
 import com.sabid.moneymanager.dataModels.TransactionDetailed
-import com.sabid.moneymanager.R
 
 
 class TransactionDetailedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -27,6 +27,7 @@ class TransactionDetailedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         val transactionDetailed = transactionDetailedList[position]
         val viewHolder: TransactionViewHolder = holder as TransactionViewHolder
         viewHolder.trxDate.text = transactionDetailed.trxDate
+        viewHolder.tvTransactionType.text = transactionDetailed.transactionTypeName
         viewHolder.accountFrom.text = transactionDetailed.accountFromName
         viewHolder.accountTo.text = transactionDetailed.accountToName
         viewHolder.amount.text = transactionDetailed.amount.toString()
@@ -54,6 +55,7 @@ class TransactionDetailedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var trxDate: TextView
+        var tvTransactionType: TextView
         var accountFrom: TextView
         var accountTo: TextView
         var amount: TextView
@@ -61,6 +63,7 @@ class TransactionDetailedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         init {
             trxDate = itemView.findViewById(R.id.txtDate)
+            tvTransactionType = itemView.findViewById(R.id.tvTransactionType)
             accountFrom = itemView.findViewById(R.id.txtAccountFrom)
             accountTo = itemView.findViewById(R.id.txtAccountTo)
             amount = itemView.findViewById(R.id.txtAmount)

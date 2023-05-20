@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sabid.moneymanager.R
+import com.sabid.moneymanager.activities.AddEditAccountActivity
 import com.sabid.moneymanager.activities.LedgerActivity
 import com.sabid.moneymanager.dataModels.AccountWithBalance
 
@@ -36,6 +37,15 @@ class AccountWithBalanceAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                     LedgerActivity::class.java
                 ).putExtra("accountId", accountWithBalance.id)
             )
+        }
+        viewHolder.itemView.setOnLongClickListener {
+            it.context.startActivity(
+                Intent(
+                    it.context,
+                    AddEditAccountActivity::class.java
+                ).putExtra("accountId", accountWithBalance.id)
+            )
+            true
         }
     }
 

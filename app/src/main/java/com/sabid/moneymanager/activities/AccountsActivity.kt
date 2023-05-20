@@ -1,5 +1,6 @@
 package com.sabid.moneymanager.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,10 @@ class AccountsActivity : AppCompatActivity() {
 
         accountViewModel.allAccountWithBalance.observe(this) {
             it.let { adapter.updateAccountWithBalanceList(it) }
+        }
+
+        binding.fabAddAccount.setOnClickListener {
+            startActivity(Intent(this, AddEditAccountActivity::class.java))
         }
     }
 }

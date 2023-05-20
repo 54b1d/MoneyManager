@@ -10,6 +10,11 @@ import com.sabid.moneymanager.DataRepository
 class AccountGroupViewModel(private val dataRepository: DataRepository) : ViewModel() {
     val allAccountGroup: LiveData<List<AccountGroup>> =
         dataRepository.allAccountGroup.asLiveData()
+
+
+    fun getAccountGroupById(groupId: Int): LiveData<AccountGroup> {
+        return dataRepository.getAccountGroupById(groupId)
+    }
 }
 
 class AccountGroupViewModelFactory(private val repository: DataRepository) :
