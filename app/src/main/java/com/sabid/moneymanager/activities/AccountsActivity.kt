@@ -30,7 +30,8 @@ class AccountsActivity : AppCompatActivity() {
 
         accountViewModel.allAccountWithBalance.observe(this) {
             it.let {
-                adapter.updateAccountWithBalanceList(it)
+                // todo remove filter after implementing grouped viewpager
+                adapter.updateAccountWithBalanceList(it.filter { it1 -> it1.groupId == 3 })
                 // liability = sum of current account balance in negative
                 var liability = 0.0
                 // asset = sum of current account balance in positive
