@@ -42,11 +42,10 @@ jobs:
           SIGNING_KEY_STORE_PATH: ${{ secrets.SIGNING_KEY_STORE_PATH }}
 
         run: |
-          echo $ENCODED_STRING > keystore-b64.txt
+          echo "$ENCODED_STRING" > keystore-b64.txt
           base64 -d keystore-b64.txt > $SIGNING_KEY_STORE_PATH
       - name: Assemble Debug
         if: ${{ github.ref != 'refs/heads/master' }}
-      
         env:
           SIGNING_KEY_STORE_PATH: ${{ secrets.SIGNING_KEY_STORE_PATH }}
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
@@ -56,6 +55,7 @@ jobs:
       - name: Copy debug APK
         if: ${{ github.ref != 'refs/heads/master' }}
         run: cp app/build/outputs/apk/debug/**.apk ./
+
       - name: Assemble Release
         if: ${{ github.ref == 'refs/heads/master' }}
         env:
