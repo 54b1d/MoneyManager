@@ -2,7 +2,7 @@ name: Build APK
 
 on:
   push:
-    branches: [ "dev", "master" ]
+    branches: [ "dev", "master", "ci_test" ]
   pull_request:
     branches: [ "dev" ]
   workflow_dispatch: { }
@@ -45,7 +45,7 @@ jobs:
           echo "$ENCODED_STRING" > keystore-b64.txt
           base64 -d keystore-b64.txt > $SIGNING_KEY_STORE_PATH
       - name: Assemble Debug
-        if: ${{ github.ref != 'refs/heads/master' }}
+        if: ${{ github.ref != 'refs/heads/ci_test' }}
         env:
           SIGNING_KEY_STORE_PATH: ${{ secrets.SIGNING_KEY_STORE_PATH }}
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
@@ -53,11 +53,11 @@ jobs:
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
         run: ./gradlew assembleDebug
       - name: Copy debug APK
-        if: ${{ github.ref != 'refs/heads/master' }}
+        if: ${{ github.ref != 'refs/heads/ci_test' }}
         run: cp app/build/outputs/apk/debug/**.apk ./
 
       - name: Assemble Release
-        if: ${{ github.ref == 'refs/heads/master' }}
+        if: ${{ github.ref == 'refs/heads/ci_test' }}
         env:
           SIGNING_KEY_STORE_PATH: ${{ secrets.SIGNING_KEY_STORE_PATH }}
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
@@ -65,16 +65,16 @@ jobs:
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
         run: ./gradlew assembleRelease
       - name: Copy release APK
-        if: ${{ github.ref == 'refs/heads/master' }}
-        run: cp app/build/outputs/apk/release/**.apk ./
+        if: ${{ github.ref == 'refs/heads/ci_test' }}
+        run: cp app/release/**.apk ./ && ls
       - name: Upload Debug APK
-        if: ${{ github.ref != 'refs/heads/master' }}
+        if: ${{ github.ref != 'refs/heads/ci_test' }}
         uses: actions/upload-artifact@v3
         with:
           name: apk-debug
           path: app-debug.apk
       - name: Upload Release APK
-        if: ${{ github.ref == 'refs/heads/master' }}
+        if: ${{ github.ref == 'refs/heads/ci_test' }}
         uses: actions/upload-artifact@v3
         with:
           name: apk-release
