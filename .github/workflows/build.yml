@@ -66,7 +66,7 @@ jobs:
         run: ./gradlew assembleRelease
       - name: Copy release APK
         if: ${{ github.ref == 'refs/heads/ci_test' }}
-        run: cp app/release/**.apk ./ && ls
+        run: ls && cp app/build/outputs/apk/release/**.apk ./
       - name: Upload Debug APK
         if: ${{ github.ref != 'refs/heads/ci_test' }}
         uses: actions/upload-artifact@v3
