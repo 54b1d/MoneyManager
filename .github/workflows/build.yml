@@ -56,14 +56,15 @@ jobs:
         if: ${{ github.ref != 'refs/heads/ci_test' }}
         run: cp app/build/outputs/apk/debug/**.apk ./
 
-      - name: Assemble Release
+      - name: Build Signed APK
         if: ${{ github.ref == 'refs/heads/ci_test' }}
-        env:
-          SIGNING_KEY_STORE_PATH: ${{ secrets.SIGNING_KEY_STORE_PATH }}
-          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-        run: ./gradlew assembleRelease
+        uses: victorbnl/build-signed-apk@main
+        with:
+          keystore_b64: ${{ secrets.SIGNING_KEY_STORE_BASE64 }}
+          keystore_password: ${{ secrets.SIGNING_STORE_PASSWORD }}
+          key_alias: ${{ secrets.SIGNING_KEY_ALIAS }}
+          key_password: ${{ secrets.SIGNING_KEY_PASSWORD }}
+
       - name: Copy release APK
         if: ${{ github.ref == 'refs/heads/ci_test' }}
         run: ls && cp app/build/outputs/apk/release/**.apk ./
