@@ -2,7 +2,7 @@ name: Build APK
 
 on:
   push:
-    branches: [ "dev", "master" ]
+    branches: [ "dev", "master", "master" ]
   pull_request:
     branches: [ "dev" ]
   workflow_dispatch: { }
@@ -66,7 +66,7 @@ jobs:
         run: ./gradlew assembleRelease
       - name: Copy release APK
         if: ${{ github.ref == 'refs/heads/master' }}
-        run: cp app/build/outputs/apk/release/**.apk ./
+        run: ls && cp app/build/outputs/apk/release/**.apk ./
       - name: Upload Debug APK
         if: ${{ github.ref != 'refs/heads/master' }}
         uses: actions/upload-artifact@v3
@@ -78,4 +78,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: apk-release
-          path: app-release.apk
+          path: app/build/outputs/apk/release/
