@@ -26,6 +26,6 @@ interface AccountDao {
     @Query("SELECT * FROM accounts ORDER BY name ASC")
     fun getALlAccountName(): List<Account>
 
-    @Query("SELECT * FROM accounts")
+    @Query("SELECT * FROM accounts ORDER BY name ASC")
     fun getAllAccount(): Flow<List<Account>>
 }

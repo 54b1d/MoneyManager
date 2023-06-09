@@ -13,7 +13,7 @@ interface AccountWithBalanceDao {
             IFNULL(acc.openingBalance
             -IFNULL((SELECT SUM(amount) FROM transactions WHERE account_from_id=acc.id),0)
             +IFNULL((SELECT SUM(amount) FROM transactions WHERE account_to_id=acc.id),0)
-            ,0) AS balance FROM accounts acc ORDER BY  acc.name ASC;"""
+            ,0) AS balance FROM accounts acc ORDER BY acc.name ASC;"""
     )
     fun allAccountWithBalance(): Flow<List<AccountWithBalance>>
 
