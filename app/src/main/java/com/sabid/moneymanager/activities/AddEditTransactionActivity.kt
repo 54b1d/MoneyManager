@@ -153,7 +153,9 @@ class AddEditTransactionActivity : AppCompatActivity() {
             accounts?.let {
                 val accountNameAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, it)
                 binding.editAccountFrom.setAdapter(accountNameAdapter)
+                binding.editAccountFrom.threshold = 1
                 binding.editAccountTo.setAdapter(accountNameAdapter)
+                binding.editAccountTo.threshold = 1
             }
         }
     }
